@@ -1,0 +1,4 @@
+# Android fstab file.
+
+#<src>                  <mnt_point>            <type>  <mnt_flags and options>              <fs_mgr_flags>
+system                  /system                ext4    ro,barrier=1                         wait,logical,first_stage_mount

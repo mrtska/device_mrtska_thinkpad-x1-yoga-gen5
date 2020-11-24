@@ -1,0 +1,7 @@
+
+
+
+on fs
+    mount_all /system/etc/fstab.${ro.boot.hardware.platform} --early
+
+
