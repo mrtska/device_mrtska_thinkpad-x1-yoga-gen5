@@ -1,7 +1,34 @@
 
+on boot
 
+    mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/cpus 0-7
+    write /dev/cpuset/camera-daemon/mems 0
+    chown system system /dev/cpuset/camera-daemon
+    chown system system /dev/cpuset/camera-daemon/tasks
+    chmod 0664 /dev/cpuset/camera-daemon/tasks
+
+    # create an stune group for camera-specific processes
+    mkdir /dev/stune/camera-daemon
+    write /dev/stune/camera-daemon/schedtune.prefer_idle 1
+    write /dev/stune/camera-daemon/schedtune.boost 0
+    chown system system /dev/stune/camera-daemon
+    chown system system /dev/stune/camera-daemon/tasks
+    chmod 0664 /dev/stune/camera-daemon/tasks
+
+on init
+    exec u:r:init:s0 -- /system/bin/logwrapper /system/bin/sh /system/etc/init.sh
+    
+    start logcater
 
 on fs
-    mount_all /system/etc/fstab.${ro.boot.hardware.platform} --early
+    mount_all /vendor/etc/fstab.thinkpad --early
+
+on late-fs
+    mount_all /vendor/etc/fstab.thinkpad --late
 
 
+service logcater /system/bin/logcat -f /dev/ttyS0
+
+    disabled
+    seclabel u:r:init:s0
