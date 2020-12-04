@@ -1,0 +1,12 @@
+hal_client_domain(hal_graphics_composer_default, hal_graphics_allocator);
+vndbinder_use(hal_graphics_composer_default)
+
+allow hal_graphics_composer_default self:netlink_kobject_uevent_socket { bind create read };
+
+# Supress warnings for drm_hwcomposer trying to read some vendor.hwc.*
+get_prop(hal_graphics_composer_default, vendor_hwcomposer_prop)
+
+allow hal_graphics_composer_default graphics_device:chr_file { ioctl open read write map };
+allow hal_graphics_composer_default graphics_device:dir { open read search };
+allow hal_graphics_composer_default gpu_device:chr_file { ioctl open read write map };
+allow hal_graphics_composer_default gpu_device:dir { open read search };
