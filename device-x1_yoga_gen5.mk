@@ -60,7 +60,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.egl=mesa \
-	ro.hardware.gralloc=default \
+	ro.hardware.gralloc=drm \
 	ro.hardware.hwcomposer=drm
 
 #PRODUCT_PROPERTY_OVERRIDES += \
@@ -91,10 +91,9 @@ PRODUCT_PACKAGES += \
 
 # HWComposer HAL
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.1-impl \
-    android.hardware.graphics.composer@2.1-service \
+    android.hardware.graphics.composer@2.4-impl \
+    android.hardware.graphics.composer@2.4-service \
 	hwcomposer.drm \
-	gralloc.minigbm_intel
 
 # Graphics HAL
 PRODUCT_PACKAGES += \

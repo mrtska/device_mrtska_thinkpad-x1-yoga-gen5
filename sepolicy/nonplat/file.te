@@ -1,1 +1,3 @@
+type sysfs_pci_devices, fs_type, sysfs_type;
+type sysfs_vgem_devices, fs_type, sysfs_type;
 type sysfs_iio_devices, fs_type, sysfs_type;

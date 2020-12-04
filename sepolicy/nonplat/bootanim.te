@@ -3,5 +3,5 @@ allow bootanim ashmem_device:chr_file execute;
 #TODO: This can safely be ignored until b/62954877 is fixed
 dontaudit bootanim system_data_file:dir read;
 
-allow bootanim graphics_device:chr_file { read ioctl open };
-allow bootanim gpu_device:chr_file { read ioctl open };
+allow surfaceflinger gpu_device:chr_file { ioctl open read write map };
+allow surfaceflinger gpu_device:dir { open read search };

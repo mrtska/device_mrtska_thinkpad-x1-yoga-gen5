@@ -2,4 +2,8 @@ allow surfaceflinger self:process execmem;
 allow surfaceflinger ashmem_device:chr_file execute;
 allow surfaceflinger gpu_device:chr_file { ioctl open read write map };
 
-allow surfaceflinger gpu_device:dir { read };
+allow surfaceflinger gpu_device:dir { open read search };
+
+allow surfaceflinger sysfs_pci_devices:file { open read getattr };
+allow surfaceflinger sysfs_pci_devices:dir { search };
+allow surfaceflinger sysfs_vgem_devices:file { open read getattr };
