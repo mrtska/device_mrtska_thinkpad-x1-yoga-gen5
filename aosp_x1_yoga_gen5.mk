@@ -5,6 +5,7 @@
 #
 
 PRODUCT_SHIPPING_API_LEVEL := 30
+PRODUCT_PRODUCT_VNDK_VERSION := current
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/mainline_system.mk)
@@ -13,6 +14,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_vendor.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_system_ext.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony_system_ext.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_product.mk)
 
 $(call inherit-product, $(LOCAL_PATH)/device-x1_yoga_gen5.mk)
 

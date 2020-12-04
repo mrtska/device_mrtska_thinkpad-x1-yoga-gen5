@@ -6,20 +6,18 @@ TARGET_NO_BOOTLOADER := true
 TARGET_CPU_ABI := x86_64
 TARGET_ARCH := x86_64
 TARGET_ARCH_VARIANT := x86_64
-TARGET_CPU_VARIANT := generic
 
 TARGET_2ND_CPU_ABI := x86
 TARGET_2ND_ARCH := x86
 TARGET_2ND_ARCH_VARIANT := x86_64
-TARGET_2ND_CPU_VARIANT := generic
 
 TARGET_USES_64_BIT_BINDER := true
 
 BOARD_MALLOC_ALIGNMENT := 16
 
-TARGET_NO_KERNEL := true
-BOARD_KERNEL_CONFIG_FILE := /home/mrtska/kernel2/common/out/.config
-BOARD_KERNEL_VERSION := 4.19.160
+TARGET_NO_KERNEL := false
+#BOARD_KERNEL_CONFIG_FILE := /home/mrtska/kernel2/common/out/.config
+#BOARD_KERNEL_VERSION := 4.19.160
 BOARD_USES_ALSA_AUDIO ?= true
 BUILD_WITH_ALSA_UTILS ?= true
 
@@ -32,7 +30,7 @@ BUILD_BROKEN_USES_BUILD_HOST_STATIC_LIBRARY := true
 BUILD_EMULATOR := false
 
 USE_OPENGL_RENDERER := true
-BOARD_GPU_DRIVERS := vmwgfx
+BOARD_GPU_DRIVERS := swrast vmwgfx i965 i915
 
 # Use F2FS as user partition.
 TARGET_USERIMAGES_USE_F2FS := true
@@ -64,6 +62,6 @@ TARGET_PRELINK_MODULE := false
 
 # SELinux
 BOARD_VENDOR_SEPOLICY_DIRS += device/mrtska/thinkpad-x1-yoga-gen5/sepolicy/nonplat 
-BOARD_VENDOR_PLAT_PRIVATE_SEPOLICY_DIR := device/mrtska/thinkpad-x1-yoga-gen5/sepolicy/plat_private
+BOARD_VENDOR_SEPOLICY_DIRS += device/mrtska/thinkpad-x1-yoga-gen5/sepolicy/plat_private
 
 #BOARD_VENDOR_KERNEL_MODULES := $(wildcard /home/mrtska/kernel2/common/out/outm/*.ko)

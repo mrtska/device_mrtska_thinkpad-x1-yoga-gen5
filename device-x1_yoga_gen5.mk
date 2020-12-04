@@ -14,13 +14,18 @@ BOARD_THINKPAD_X1_YOGA_PARTITION_LIST := system system_ext vendor product
 
 TARGET_NO_VENDOR_BOOT := true
 
-PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := false
+#PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := false
+
+LOCAL_KERNEL := kernel/common/out/arch/x86/boot/bzImage
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_USE_VNDK := true
 
 DEVICE_MANIFEST_FILE := $(LOCAL_PATH)/manifest.xml
-#DEVICE_MATRIX_FILE := $(LOCAL_PATH)/compatibility_matrix.xml
+DEVICE_MATRIX_FILE := $(LOCAL_PATH)/compatibility_matrix.xml
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
 # PRODUCT_PACKAGES := \
 #     hwcomposer.drm  \
@@ -51,6 +56,7 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/init.hardware.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.thinkpad.rc \
 	$(LOCAL_PATH)/init.sh:$(TARGET_COPY_OUT_SYSTEM)/etc/init.sh
 
+#PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,kernel/modules,$(TARGET_COPY_OUT_RAMDISK))
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.egl=mesa \
@@ -117,8 +123,7 @@ PRODUCT_PACKAGES += \
 
 # Power HAL
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-impl \
-    android.hardware.power@1.0-service
+    android.hardware.power-service.example
 
 # Power Stats HAL
 PRODUCT_PACKAGES += \
