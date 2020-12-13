@@ -1,0 +1,6 @@
+
+
+#allow crash_dump graphics_device:chr_file { ioctl open read write map };
+allow crash_dump graphics_device:dir { open read search };
+#allow crash_dump gpu_device:chr_file { ioctl open read write map };
+allow crash_dump gpu_device:dir { open read search };

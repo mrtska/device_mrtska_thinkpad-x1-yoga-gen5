@@ -1,1 +1,5 @@
 r_dir_file(hal_power_stats_default, sysfs_iio_devices) # Needed to traverse nonexistent iio devices tree
+
+allow hal_power_stats_default sysfs_pci_devices:dir { search };
+allow hal_power_stats_default sysfs_pci_devices:file { open read };
+

@@ -1,0 +1,5 @@
+
+
+allow kernel kernel:capability { sys_admin };
+
+
