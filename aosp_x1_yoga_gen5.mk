@@ -1,9 +1,3 @@
-# Copyright 2020 mrtska
-
-#
-# All components inherited here go to system image
-#
-
 PRODUCT_SHIPPING_API_LEVEL := 30
 PRODUCT_PRODUCT_VNDK_VERSION := current
 
@@ -22,6 +16,6 @@ $(call inherit-product, $(LOCAL_PATH)/device-x1_yoga_gen5.mk)
 PRODUCT_MANUFACTURER := mrtska
 PRODUCT_BRAND := Android
 PRODUCT_NAME := aosp_x1_yoga_gen5
-PRODUCT_DEVICE := thinkpad-x1-yoga-gen5
-PRODUCT_MODEL := AOSP on x1_yoga_gen5
+PRODUCT_DEVICE := thinkpad-20ub
+PRODUCT_MODEL := AOSP on ThinkPad X1 Yoga Gen5
 

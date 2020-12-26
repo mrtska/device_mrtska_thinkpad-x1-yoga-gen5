@@ -1,7 +1,6 @@
-# Copyright 2020 mrtska
+LOCAL_PATH := device/mrtska/thinkpad-20ub
 
-LOCAL_PATH := device/mrtska/thinkpad-x1-yoga-gen5
-
+PRODUCT_CHARACTERISTICS := tablet,nosdcard
 
 # Use super partitions.
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
@@ -27,13 +26,6 @@ DEVICE_MANIFEST_FILE := $(LOCAL_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(LOCAL_PATH)/compatibility_matrix.xml
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
-# PRODUCT_PACKAGES := \
-#     hwcomposer.drm  \
-#     gralloc.drm     \
-#     gralloc.gbm     \
-#     libGLES_mesa    \
-#     libtxc_dxtn     
-
 PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH) \
     external/mesa3d
 
@@ -56,11 +48,8 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/init.hardware.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.thinkpad.rc \
 	$(LOCAL_PATH)/init.sh:$(TARGET_COPY_OUT_SYSTEM)/etc/init.sh
 
-#PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,kernel/modules,$(TARGET_COPY_OUT_RAMDISK))
-
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hardware.egl=mesa \
-	ro.hardware.gralloc=drm \
+    ro.hardware.egl=swiftshader \
 	ro.hardware.hwcomposer=drm
 
 #PRODUCT_PROPERTY_OVERRIDES += \
@@ -79,31 +68,23 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libeffects/data/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
 
 
-# Install kernel modules.
-
 # Audio HAL
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
 	android.hardware.audio@6.0-impl \
-    android.hardware.soundtrigger@2.0-impl \
-    android.hardware.soundtrigger@2.3-impl \
     android.hardware.audio.effect@6.0-impl \
     android.hardware.audio.service
 
 # HWComposer HAL
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.4-impl \
-    android.hardware.graphics.composer@2.4-service \
-	hwcomposer.drm \
+    android.hardware.graphics.composer@2.3-impl \
+    android.hardware.graphics.composer@2.3-service \
+	hwcomposer.drm
 
 # Graphics HAL
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.mapper@2.0-impl-2.1 \
-	android.hardware.graphics.mapper@4.0-service \
-    android.hardware.graphics.allocator@2.0-impl \
-	android.hardware.graphics.allocator@2.0-service
-
-PRODUCT_PACKAGES += \
+    android.hardware.graphics.allocator@4.0-service.minigbm \
+    android.hardware.graphics.mapper@4.0-impl.minigbm \
     libGLES_mesa
 
 # Keymaster HAL
@@ -150,7 +131,7 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-service
 
 # Vibrator HAL
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
 	android.hardware.vibrator-service.example
 
 # DRM HAL
@@ -163,3 +144,14 @@ PRODUCT_PACKAGES += \
 # RenderScript HAL
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
+
+# Wifi HAL
+PRODUCT_PACKAGES += \
+    android.hardware.wifi@1.0-service \
+    libwpa_client \
+    hostapd \
+    wpa_supplicant
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
+    $(LOCAL_PATH)/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf
