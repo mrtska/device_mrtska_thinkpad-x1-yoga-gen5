@@ -31,4 +31,4 @@ on boot
     start hostapd
     start wpa_supplicant
 
-    setprop wifi.interface eth0
+    setprop wifi.interface wlan0
