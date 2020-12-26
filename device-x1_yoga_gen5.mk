@@ -48,6 +48,18 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/init.hardware.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.thinkpad.rc \
 	$(LOCAL_PATH)/init.sh:$(TARGET_COPY_OUT_SYSTEM)/etc/init.sh
 
+# copy linux firmwares.
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/firmware/iwlwifi-QuZ-a0-hr-b0-59.ucode:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/iwlwifi-QuZ-a0-hr-b0-59.ucode \
+    $(LOCAL_PATH)/firmware/i915/kbl_dmc_ver1_04.bin:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/i915/kbl_dmc_ver1_04.bin \
+    $(LOCAL_PATH)/firmware/intel/ibt-19-0-4.sfi:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/intel/ibt-19-0-4.sfi \
+    $(LOCAL_PATH)/firmware/intel/ibt-19-0-4.ddc:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/intel/ibt-19-0-4.ddc
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/firmware/iwlwifi-QuZ-a0-hr-b0-59.ucode:$(TARGET_COPY_OUT_VENDOR)/firmware/iwlwifi-QuZ-a0-hr-b0-59.ucode \
+    $(LOCAL_PATH)/firmware/i915/kbl_dmc_ver1_04.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/i915/kbl_dmc_ver1_04.bin \
+    $(LOCAL_PATH)/firmware/intel/ibt-19-0-4.sfi:$(TARGET_COPY_OUT_VENDOR)/firmware/intel/ibt-19-0-4.sfi \
+    $(LOCAL_PATH)/firmware/intel/ibt-19-0-4.ddc:$(TARGET_COPY_OUT_VENDOR)/firmware/intel/ibt-19-0-4.ddc
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.egl=mesa \
 	ro.hardware.hwcomposer=drm
@@ -152,6 +164,5 @@ PRODUCT_PACKAGES += \
     hostapd \
     wpa_supplicant
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     $(LOCAL_PATH)/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf
