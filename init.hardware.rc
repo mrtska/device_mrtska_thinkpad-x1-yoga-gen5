@@ -18,10 +18,6 @@ on init
     mkdir /dev/socket/pdx/system/vr/pose 0775 system system
     mkdir /dev/socket/pdx/system/vr/sensors 0775 system system
 
-on init
-    exec u:r:init:s0 -- /system/bin/logwrapper /system/bin/sh /system/etc/init.sh
-    
-    #start logcater
 
 on fs
     mount_all /vendor/etc/fstab.thinkpad --early
@@ -36,9 +32,3 @@ on boot
     start wpa_supplicant
 
     setprop wifi.interface eth0
-
-service logcater /system/bin/logcat -f /dev/ttyS0
-
-    user root
-    group root
-    disabled

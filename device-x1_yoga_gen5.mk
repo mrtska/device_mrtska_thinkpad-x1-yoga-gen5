@@ -49,7 +49,7 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/init.sh:$(TARGET_COPY_OUT_SYSTEM)/etc/init.sh
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hardware.egl=swiftshader \
+    ro.hardware.egl=mesa \
 	ro.hardware.hwcomposer=drm
 
 #PRODUCT_PROPERTY_OVERRIDES += \
