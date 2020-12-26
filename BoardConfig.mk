@@ -80,5 +80,5 @@ TARGET_PRELINK_MODULE := false
 TARGET_SCREEN_DENSITY := 160
 
 # SELinux
-BOARD_VENDOR_SEPOLICY_DIRS += device/mrtska/thinkpad-x1-yoga-gen5/sepolicy/nonplat 
-PRODUCT_PRIVATE_SEPOLICY_DIRS += device/mrtska/thinkpad-x1-yoga-gen5/sepolicy/plat_private
+BOARD_VENDOR_SEPOLICY_DIRS += device/mrtska/thinkpad-20ub/sepolicy/nonplat 
+PRODUCT_PRIVATE_SEPOLICY_DIRS += device/mrtska/thinkpad-20ub/sepolicy/plat_private
