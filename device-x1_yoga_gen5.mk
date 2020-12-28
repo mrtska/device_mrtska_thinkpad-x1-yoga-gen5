@@ -135,7 +135,10 @@ PRODUCT_PACKAGES += \
 # Light HAL
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
-    android.hardware.light@2.0-service
+    android.hardware.light@2.0-service \
+    lights.thinkpad
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.lights=thinkpad
 
 # Sensors HAL
 #PRODUCT_PACKAGES += \
