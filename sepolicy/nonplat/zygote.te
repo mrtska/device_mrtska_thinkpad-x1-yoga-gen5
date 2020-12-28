@@ -3,3 +3,6 @@
 dontaudit webview_zygote mnt_expand_file:dir getattr;
 allow zygote self:process execmem;
 allow zygote self:capability sys_nice;
+
+allow zygote labeledfs:filesystem { unmount };
+

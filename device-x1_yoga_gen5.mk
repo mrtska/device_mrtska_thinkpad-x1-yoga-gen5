@@ -5,10 +5,10 @@ PRODUCT_CHARACTERISTICS := tablet,nosdcard
 # Use super partitions.
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 BOARD_BUILD_SUPER_IMAGE_BY_DEFAULT := true
-BOARD_SUPER_PARTITION_SIZE := 2147483648
+BOARD_SUPER_PARTITION_SIZE := 8589934592 #2147483648
 
 BOARD_SUPER_PARTITION_GROUPS := thinkpad_x1_yoga
-BOARD_THINKPAD_X1_YOGA_SIZE := 2143289344
+BOARD_THINKPAD_X1_YOGA_SIZE := 8588934592 #2143289344
 BOARD_THINKPAD_X1_YOGA_PARTITION_LIST := system system_ext vendor product
 
 TARGET_NO_VENDOR_BOOT := true
@@ -75,9 +75,11 @@ PRODUCT_COPY_FILES += \
 
 USE_XML_AUDIO_POLICY_CONF := 1
 
+#PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/tablet_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/tablet_core_hardware.xml \
+
 PRODUCT_COPY_FILES += \
-    frameworks/av/services/audiopolicy/config/primary_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    frameworks/av/media/libeffects/data/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
+    $(LOCAL_PATH)/thinkpad_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/thinkpad_hardware.xml \
 
 
 # Audio HAL
@@ -86,6 +88,9 @@ PRODUCT_PACKAGES += \
 	android.hardware.audio@6.0-impl \
     android.hardware.audio.effect@6.0-impl \
     android.hardware.audio.service
+PRODUCT_COPY_FILES += \
+    frameworks/av/services/audiopolicy/config/primary_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    frameworks/av/media/libeffects/data/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
 
 # HWComposer HAL
 PRODUCT_PACKAGES += \
@@ -125,6 +130,9 @@ PRODUCT_PACKAGES += \
 # USB Gadget HAL
 #RODUCT_PACKAGES += \
     android.hardware.usb.gadget@1.1-service
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
+    frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml
 
 # Memtrack HAL
 PRODUCT_PACKAGES += \
@@ -160,6 +168,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
+# Bluetooth HAL
+#PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.1-service \
+    android.hardware.bluetooth@1.0-impl
+
 # Wifi HAL
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
@@ -169,3 +182,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     $(LOCAL_PATH)/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf
+
+# Ethernet
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml
+

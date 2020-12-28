@@ -1,5 +1,5 @@
 
-
 allow kernel kernel:capability { sys_admin };
 
-
+r_dir_file(kernel, vendor_file)
+r_dir_file(kernel, vendor_firmware_file)
