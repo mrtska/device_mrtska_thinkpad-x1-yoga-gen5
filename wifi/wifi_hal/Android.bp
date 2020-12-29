@@ -1,0 +1,19 @@
+cc_library_static {
+    name: "libwifi-hal-intel",
+    proprietary: true,
+     cflags: [
+        "-Wno-error",
+        "-Wall",
+        "-Wno-unused-parameter"
+     ],
+    shared_libs: [
+        "libnl",
+        "liblog",
+        "libcutils",
+        "libhardware_legacy",
+    ],
+    srcs: [
+        "wifi_hal.cpp",
+        "nl_proxy.cpp",
+    ],
+}
