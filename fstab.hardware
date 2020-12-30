@@ -7,3 +7,5 @@ vendor                        /vendor                ext4    ro,barrier=1       
 product                       /product               ext4    ro,barrier=1                           wait,logical,first_stage_mount
 /dev/block/by-name/metadata   /metadata              ext4    noatime,nosuid,nodev,discard           wait,check,formattable,first_stage_mount,metadata_csum
 /dev/block/by-name/userdata   /data                  f2fs    noatime,nosuid,nodev,discard           latemount,wait,check,formattable
+
+/devices/pci0000:00/0000:00:14.0/usb* auto           auto    defaults                               voldmanaged=usb:auto
