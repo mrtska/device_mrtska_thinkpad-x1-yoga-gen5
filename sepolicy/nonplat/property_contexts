@@ -1,3 +1,6 @@
 ro.radio.noril          u:object_r:radio_noril_prop:s0
 ro.opengles.            u:object_r:opengles_prop:s0
 hwc.drm.                u:object_r:vendor_hwcomposer_prop:s0
+
+vendor.wlan.driver.version             u:object_r:vendor_wifi_version:s0
+vendor.wlan.firmware.version           u:object_r:vendor_wifi_version:s0

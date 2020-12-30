@@ -21,3 +21,5 @@ PRODUCT_NAME := aosp_x1_yoga_gen5
 PRODUCT_DEVICE := thinkpad-20ub
 PRODUCT_MODEL := AOSP on ThinkPad X1 Yoga Gen5
 
+GAPPS_VARIANT := pico
+$(call inherit-product-if-exists, vendor/opengapps/build/opengapps-packages.mk)

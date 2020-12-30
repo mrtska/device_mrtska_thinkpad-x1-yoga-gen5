@@ -97,6 +97,9 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.3-impl \
     android.hardware.graphics.composer@2.3-service \
 	hwcomposer.drm
+# Avoid blink background layer.
+PRODUCT_PROPERTY_OVERRIDES += \
+   vendor.hwc.backend_override=client
 
 # Graphics HAL
 PRODUCT_PACKAGES += \
