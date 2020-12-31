@@ -1,3 +1,4 @@
+import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
 
 on init
 
@@ -38,3 +39,4 @@ on boot
     start wpa_supplicant
 
     setprop wifi.interface wlan0
+

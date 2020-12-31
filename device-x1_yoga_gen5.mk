@@ -46,7 +46,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/fstab.hardware:$(TARGET_COPY_OUT_RAMDISK)/fstab.thinkpad \
     $(LOCAL_PATH)/fstab.hardware:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.thinkpad \
 	$(LOCAL_PATH)/init.hardware.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.thinkpad.rc \
-	$(LOCAL_PATH)/init.sh:$(TARGET_COPY_OUT_SYSTEM)/etc/init.sh
+	$(LOCAL_PATH)/init.hardware.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.thinkpad.usb.rc \
+	$(LOCAL_PATH)/init.sh:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.sh
 
 # copy linux firmwares.
 PRODUCT_COPY_FILES += \
