@@ -24,6 +24,8 @@ on init
     chown root system /sys/class/backlight/intel_backlight/max_brightness
     chmod 0664 /sys/class/backlight/intel_backlight/max_brightness
 
+    chown bluetooth root /sys/class/rfkill/rfkill3/state
+
 on fs
     mount_all /vendor/etc/fstab.thinkpad --early
 
