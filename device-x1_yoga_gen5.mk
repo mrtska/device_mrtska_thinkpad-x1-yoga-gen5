@@ -89,6 +89,7 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@6.0-impl \
     android.hardware.soundtrigger@2.3-impl \
     android.hardware.audio.service \
+    audio.primary.thinkpad \
     audio.usb.default \
     audio.r_submix.default \
     libaudio-resampler \

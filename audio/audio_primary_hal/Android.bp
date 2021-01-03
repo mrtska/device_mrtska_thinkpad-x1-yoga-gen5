@@ -1,0 +1,16 @@
+cc_library_shared {
+    name: "audio.primary.thinkpad",
+    proprietary: true,
+    relative_install_path: "hw",
+    srcs: ["audio_hw.c", "audio_io.c"],
+
+    shared_libs: [
+        "liblog",
+        "libhardware",
+        "libtinyalsa"
+    ],
+     cflags: [
+        "-Wno-error",
+        "-Wall"
+     ]
+}
