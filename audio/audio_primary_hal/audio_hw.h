@@ -4,6 +4,10 @@
 #include <pthread.h>
 
 #include <hardware/audio.h>
+#include <tinyalsa/asoundlib.h>
+
+#define SOUNDCARD_ID 1
+#define SOUNDCARD_DEVICE_ID 0
 
 
 struct audio_device {
@@ -19,4 +23,5 @@ struct audio_device {
 
     float voice_volume;
 
+    struct mixer *mixer;
 };

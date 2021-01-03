@@ -13,8 +13,6 @@
 static pthread_mutex_t adev_init_lock = PTHREAD_MUTEX_INITIALIZER;
 static struct audio_device *audio_device = NULL;
 
-
-
 static int adev_init_check(const struct audio_hw_device *dev __unused) {
 
     // no-op.
@@ -145,10 +143,13 @@ static int adev_open_output_stream(struct audio_hw_device *dev, audio_io_handle_
     out->stream.get_render_position = out_get_render_position;
     out->stream.get_next_write_timestamp = out_get_next_write_timestamp;
 
-    out->sample_rate = config->sample_rate;
+    out->sample_rate = 48000;
     out->channel_mask = config->channel_mask;
     out->format = config->format;
     out->frame_count = samples_per_milliseconds(10, out->sample_rate, 1);
+    out->standby = true;
+
+    out->device = (struct audio_device*) dev;;
 
     pthread_mutex_init(&out->lock, (const pthread_mutexattr_t*) NULL);
 
@@ -194,6 +195,9 @@ static int adev_open_input_stream(struct audio_hw_device *dev, audio_io_handle_t
     in->channel_mask = config->channel_mask;
     in->format = config->format;
     in->frame_count = samples_per_milliseconds(10, in->sample_rate, 1);
+    in->standby = true;
+
+    in->device = (struct audio_device*) dev;
 
     pthread_mutex_init(&in->lock, (const pthread_mutexattr_t*) NULL);
 
@@ -229,6 +233,10 @@ static int adev_get_microphones(const struct audio_hw_device *dev, struct audio_
 static int adev_close(hw_device_t *device) {
 
     pthread_mutex_lock(&adev_init_lock);
+
+    struct audio_device *adev = (struct audio_device *)device;
+
+    mixer_close(adev->mixer);
 
     free(device);
     audio_device = NULL;
@@ -277,6 +285,32 @@ static int adev_open(const hw_module_t *module, const char *name, hw_device_t **
     audio_device->device.get_microphones = adev_get_microphones;
     
     *device = &audio_device->device.common;
+
+    audio_device->mixer = mixer_open(SOUNDCARD_ID);
+
+    for (int i = 0; i < mixer_get_num_ctls(audio_device->mixer); i++) {
+
+        struct mixer_ctl *ctl = mixer_get_ctl(audio_device->mixer, i);
+        const char *name = mixer_ctl_get_name(ctl);
+        
+        if (strcmp(name, "Master Playback Switch") == 0 || strcmp(name, "Capture Switch") == 0) {
+
+            for (int num = 0; num < mixer_ctl_get_num_values(ctl); num++) {
+
+                mixer_ctl_set_value(ctl, num, 1);
+            }
+            continue;
+        }
+
+        if (strcmp(name, "Master Playback Volume") == 0 || strcmp(name, "Capture Volume") == 0) {
+
+            for (int num = 0; num < mixer_ctl_get_num_values(ctl); num++) {
+
+                mixer_ctl_set_percent(ctl, num, 100);
+            }
+            continue;
+        }
+    }
 
     pthread_mutex_unlock(&adev_init_lock);
 

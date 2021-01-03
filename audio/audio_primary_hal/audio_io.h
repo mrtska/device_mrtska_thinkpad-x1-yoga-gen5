@@ -4,16 +4,22 @@
 
 #include <hardware/audio.h>
 
+#include "audio_hw.h"
+
 
 struct stream_out {
 
     struct audio_stream_out stream;
     pthread_mutex_t lock;
 
+    struct audio_device *device;
+
     uint32_t sample_rate;
     audio_channel_mask_t channel_mask;
     audio_format_t format;
     size_t frame_count;
+
+    struct pcm *pcm;
 
     bool standby;
 };
@@ -22,6 +28,8 @@ struct stream_in {
 
     struct audio_stream_in stream;
     pthread_mutex_t lock;
+
+    struct audio_device *device;
 
     uint32_t sample_rate;
     audio_channel_mask_t channel_mask;

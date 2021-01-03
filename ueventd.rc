@@ -1,0 +1,8 @@
+
+
+/dev/wlan                 0666   system     system
+/dev/ion                  0664   system     system
+
+# Radio
+/dev/ttyACM*              0660  system        radio
+
