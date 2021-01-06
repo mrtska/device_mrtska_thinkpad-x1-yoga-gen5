@@ -1,0 +1,2 @@
+# device specific syscalls
+mkdirat: 1

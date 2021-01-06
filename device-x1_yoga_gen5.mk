@@ -124,15 +124,27 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.3-impl \
     android.hardware.graphics.composer@2.3-service \
 	hwcomposer.drm
-# Avoid blink background layer.
 PRODUCT_PROPERTY_OVERRIDES += \
-   vendor.hwc.backend_override=client
+   vendor.hwc.backend_override=client \
+    ro.hardware.egl=mesa \
+    ro.opengles.version = 196610 \
+	ro.hardware.hwcomposer=drm \
+    ro.hardware.gralloc=gbm
+#    android.hardware.graphics.allocator@4.0-service.minigbm \
+#    android.hardware.graphics.mapper@4.0-impl.minigbm \
 
 # Graphics HAL
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.allocator@4.0-service.minigbm \
-    android.hardware.graphics.mapper@4.0-impl.minigbm \
-    libGLES_mesa
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service \
+    android.hardware.graphics.mapper@2.0-impl-2.1 \
+    gralloc.minigbm_intel \
+    gralloc.gbm \
+    libGLES_mesa \
+    vulkan.thinkpad
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.vulkan.level-1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-1.xml \
+    frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_1.xml
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
