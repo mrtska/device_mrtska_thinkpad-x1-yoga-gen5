@@ -23,3 +23,5 @@ PRODUCT_MODEL := AOSP on ThinkPad X1 Yoga Gen5
 
 GAPPS_VARIANT := pico
 $(call inherit-product-if-exists, vendor/opengapps/build/opengapps-packages.mk)
+
+$(call inherit-product-if-exists, vendor/nativebridge/nativebridge.mk)

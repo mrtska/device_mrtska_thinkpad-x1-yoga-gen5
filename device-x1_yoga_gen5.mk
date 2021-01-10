@@ -27,7 +27,7 @@ DEVICE_MATRIX_FILE := $(LOCAL_PATH)/compatibility_matrix.xml
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
 PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH) \
-    external/mesa3d
+    frameworks/libs/native_bridge_support/overriding
 
 PRODUCT_PACKAGES := \
     init_system \
