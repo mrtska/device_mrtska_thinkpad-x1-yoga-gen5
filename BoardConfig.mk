@@ -79,6 +79,8 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/generic/common/bluetooth
 
 TARGET_PRELINK_MODULE := false
 
+# Sensor settings.
+USE_IIO_SENSOR_HAL := true
 # default display density. 
 TARGET_SCREEN_DENSITY := 160
 
