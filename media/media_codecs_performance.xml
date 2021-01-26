@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<MediaCodecs>
+
+<Decoders>
+        <MediaCodec name="OMX.Intel.hw_vd.h264" type="video/avc">
+            <!-- profiles and levels:  ProfileHigh : Level52 -->
+            <Limit name="size" min="2x2" max="4096x4096" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="block-count" range="1-32768" /> <!-- max 4096x2048 equivalent -->
+            <Limit name="blocks-per-second" range="1-1966080" />
+            <Limit name="bitrate" range="1-48000000" />
+            <Feature name="adaptive-playback" />
+        </MediaCodec>
+        <MediaCodec name="OMX.Intel.hw_vd.h265" type="video/hevc">
+            <!-- profiles and levels:  ProfileMain : MainTierLevel51 -->
+            <Limit name="size" min="2x2" max="8192x8192" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="8x8" />
+            <Limit name="block-count" range="1-196608" /> <!-- max 4096x3072 -->
+            <Limit name="blocks-per-second" range="1-2000000" />
+            <Limit name="bitrate" range="1-10000000" />
+            <Feature name="adaptive-playback" />
+        </MediaCodec>
+        <MediaCodec name="OMX.Intel.hw_vd.vp8" type="video/x-vnd.on2.vp8">
+            <Limit name="size" min="2x2" max="4096x4096" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="block-count" range="1-16384" />
+            <Limit name="blocks-per-second" range="1-1000000" />
+            <Limit name="bitrate" range="1-40000000" />
+            <Feature name="adaptive-playback" />
+        </MediaCodec>
+        <MediaCodec name="OMX.Intel.hw_vd.vp9" type="video/x-vnd.on2.vp9">
+            <Limit name="size" min="2x2" max="8192x8192" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="block-count" range="1-16384" />
+            <Limit name="blocks-per-second" range="1-500000" />
+            <Limit name="bitrate" range="1-40000000" />
+            <Feature name="adaptive-playback" />
+        </MediaCodec>
+    </Decoders>
+
+    <Encoders>
+        <MediaCodec name="OMX.Intel.hw_ve.h264" type="video/avc">
+            <!-- profiles and levels:  ProfileBaseline : Level41 -->
+            <Limit name="size" min="16x16" max="4096x4096" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="block-count" range="1-8192" /> <!-- max 2048x1024 -->
+            <Limit name="blocks-per-second" range="1-245760" />
+            <Limit name="bitrate" range="1-12000000" />
+            <Feature name="intra-refresh" />
+        </MediaCodec>
+    </Encoders>
+
+</MediaCodecs>

@@ -32,6 +32,10 @@ on fs
 on late-fs
     mount_all /vendor/etc/fstab.thinkpad --late
 
+on post-fs
+    setprop ro.vendor.iio.accel.x.opt_scale -1
+    setprop ro.vendor.iio.accel.y.opt_scale -1
+
 on boot
 
     mkdir /data/vendor/wifi/wpa 0770 wifi wifi

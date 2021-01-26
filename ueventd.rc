@@ -1,8 +1,14 @@
 
 
-/dev/wlan                 0666   system     system
-/dev/ion                  0664   system     system
+/dev/wlan                 0666 system system
+/dev/ion                  0664 system system
 
 # Radio
-/dev/ttyACM*              0660  system        radio
+/dev/ttyACM*              0660 system radio
 
+# NFC
+/dev/pn544                0660 nfc nfc
+
+# Sensors
+/dev/iio:device0          0660 root system
+/dev/iio:device1          0660 root system

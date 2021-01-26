@@ -82,7 +82,10 @@ USE_XML_AUDIO_POLICY_CONF := 1
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/thinkpad_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/thinkpad_hardware.xml \
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+    frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.freeform_window_management.xml
 
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Audio HAL
 PRODUCT_PACKAGES += \
@@ -110,14 +113,21 @@ PRODUCT_COPY_FILES += \
 # Media Codec HAL
 PRODUCT_PACKAGES += \
     android.hardware.media.omx@1.0-service \
-#    android.hardware.media.c2@1.0-service-v4l2
+    libstagefrighthw \
+    libmfx_omx_core \
+    libmfx_omx_components_hw \
+    i965_drv_video
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
-    $(LOCAL_PATH)/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
+    $(LOCAL_PATH)/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+    $(LOCAL_PATH)/media/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml \
+    $(LOCAL_PATH)/media/mfx_omxil_core.conf:$(TARGET_COPY_OUT_VENDOR)/etc/mfx_omxil_core.conf \
+    $(LOCAL_PATH)/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
+    $(LOCAL_PATH)/seccomp_policy/mediaswcodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaswcodec.policy
 
 # HWComposer HAL
 PRODUCT_PACKAGES += \
@@ -128,18 +138,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
    vendor.hwc.backend_override=client \
     ro.hardware.egl=mesa \
     ro.opengles.version = 196610 \
-	ro.hardware.hwcomposer=drm \
-    ro.hardware.gralloc=gbm
-#    android.hardware.graphics.allocator@4.0-service.minigbm \
-#    android.hardware.graphics.mapper@4.0-impl.minigbm \
+	ro.hardware.hwcomposer=thinkpad \
+    ro.hardware.gralloc=intel
+PRODUCT_COPY_FILES += \
+    vendor/intel/IA-Hardware-Composer/hwc_display.ini:$(TARGET_COPY_OUT_VENDOR)/etc/hwc_display.ini
 
 # Graphics HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
-    gralloc.minigbm_intel \
-    gralloc.gbm \
+    gralloc.intel \
     libGLES_mesa \
     vulkan.thinkpad
 PRODUCT_COPY_FILES += \

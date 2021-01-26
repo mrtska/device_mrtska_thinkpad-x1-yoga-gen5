@@ -41,6 +41,11 @@ BUILD_EMULATOR := false
 # gpu settings.
 USE_OPENGL_RENDERER := true
 BOARD_GPU_DRIVERS := swrast i965 i915
+BOARD_USES_GRALLOC1 := true
+BOARD_USES_IA_HWCOMPOSER := true
+TARGET_USES_HWC2 := true
+INTEL_MINIGBM := vendor/intel/minigbm
+BOARD_USE_CUSTOMIZED_MESA := true
 
 # 10GB / 2 10737418240
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 5368709120
@@ -81,9 +86,18 @@ TARGET_PRELINK_MODULE := false
 
 # Sensor settings.
 USE_IIO_SENSOR_HAL := true
+
+# Media settings.
+INTEL_STAGEFRIGHT := true
+BOARD_HAVE_MEDIASDK_OPEN_SOURCE := true
+BOARD_HAVE_OMX_SRC := true
+
 # default display density. 
 TARGET_SCREEN_DENSITY := 160
 
 # SELinux
 BOARD_VENDOR_SEPOLICY_DIRS += device/mrtska/thinkpad-20ub/sepolicy/nonplat 
 PRODUCT_PRIVATE_SEPOLICY_DIRS += device/mrtska/thinkpad-20ub/sepolicy/plat_private
+
+BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
+BUILD_BROKEN_USES_BUILD_HOST_STATIC_LIBRARY := true
