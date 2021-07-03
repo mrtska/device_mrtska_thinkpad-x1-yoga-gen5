@@ -1,0 +1,31 @@
+
+
+cc_library_shared {
+
+    name: "libril-l860gl",
+    proprietary: true,
+    relative_install_path: "hw",
+
+    overrides: ["libreference-ril"],
+
+    cflags: [
+        "-DRIL_SHLIB"
+    ],
+
+    include_dirs: [
+        "hardware/ril/include"
+    ],
+    srcs: [
+        "libril-l860gl.cpp",
+    ],
+
+    shared_libs: [
+        "liblog",
+        "librilutils",
+        "android.hardware.radio@1.5"
+    ]
+}
+
+
+
+

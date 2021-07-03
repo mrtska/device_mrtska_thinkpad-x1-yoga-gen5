@@ -1,0 +1,36 @@
+
+
+cc_binary {
+
+    name: "android.hardware.radio@1.5-radio-service.l860gl",
+    vendor: true,
+    relative_install_path: "hw",
+    init_rc: ["android.hardware.radio@1.5-radio-service.l860gl.rc"],
+
+    srcs: [
+        "service.cpp",
+        "radio.cpp",
+    ],
+
+    cflags: [
+        "-Wno-unused-parameter"
+    ],
+    include_dirs: [
+        "hardware/ril/include",
+    ],
+    shared_libs: [
+        "liblog",
+        "libutils",
+        "libhidlbase",
+        "android.hardware.radio@1.0",
+        "android.hardware.radio@1.1",
+        "android.hardware.radio@1.2",
+        "android.hardware.radio@1.3",
+        "android.hardware.radio@1.4",
+        "android.hardware.radio@1.5",
+    ]
+}
+
+
+
+

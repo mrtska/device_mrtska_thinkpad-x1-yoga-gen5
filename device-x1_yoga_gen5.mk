@@ -27,15 +27,19 @@ DEVICE_MATRIX_FILE := $(LOCAL_PATH)/compatibility_matrix.xml
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
 PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH) \
-    frameworks/libs/native_bridge_support/overriding
+    #frameworks/libs/native_bridge_support/overriding
 
-PRODUCT_PACKAGES := \
+#PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.fingerprint=Android/aosp_x1_yoga_gen5/thinkpad-20ub:11/RP1A.201005.004.A1/mrtska12261106:eng/test-keys
+
+PRODUCT_PACKAGES += \
     init_system \
 	init_vendor \
 	android.hardware.configstore@1.1-service \
 	android.hardware.cas@1.2 \
 	vndservicemanager \
-	libminijail
+	libminijail \
+    NavigationBarMode2ButtonOverlay
 
 PRODUCT_PACKAGES += \
     libEGL_swiftshader \
@@ -63,8 +67,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/firmware/intel/ibt-19-0-4.ddc:$(TARGET_COPY_OUT_VENDOR)/firmware/intel/ibt-19-0-4.ddc
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hardware.egl=mesa \
-	ro.hardware.hwcomposer=drm
+    service.adb.tcp.port=5555 \
+    persist.adb.tcp.port=5555 \
+    ro.secure=0 \
+ #   ro.boot.quiescent=1
 
 #PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version = 196608 \
@@ -93,22 +99,30 @@ PRODUCT_PACKAGES += \
     android.hardware.audio.effect@6.0-impl \
     android.hardware.soundtrigger@2.3-impl \
     android.hardware.audio.service \
-    audio.primary.thinkpad \
     audio.usb.default \
     audio.r_submix.default \
     libaudio-resampler \
-    audio_policy_engine_configuration.xml \
-    tinyplay
+    audio.primary.thinkpad \
+    audio.hdmi.thinkpad \
+    audio.usb.thinkpad \
+    tinyplay \
+    audio_policy_engine_criteria.xml
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    frameworks/av/services/audiopolicy/config/primary_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/primary_audio_policy_configuration.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_1.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_ehl.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_ehl.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_usb.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_usb.xml \
+    $(LOCAL_PATH)/audio/audio_policy_engine_criterion_types.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_criterion_types.xml \
+    $(LOCAL_PATH)/audio/audio_policy_engine_product_strategies.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_product_strategies.xml \
     frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml \
     frameworks/av/media/libeffects/data/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
-    frameworks/native/data/etc/android.hardware.audio.output.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.output.xml
+    frameworks/native/data/etc/android.hardware.audio.output.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.output.xml \
+    frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml
+#    $(LOCAL_PATH)/audio/audio_policy_engine_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_engine_configuration.xml \
 
 # Media Codec HAL
 PRODUCT_PACKAGES += \
@@ -133,7 +147,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.3-impl \
     android.hardware.graphics.composer@2.3-service \
-	hwcomposer.drm
+	hwcomposer.thinkpad
 PRODUCT_PROPERTY_OVERRIDES += \
    vendor.hwc.backend_override=client \
     ro.hardware.egl=mesa \
@@ -170,6 +184,39 @@ PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
     android.hardware.gatekeeper@1.0-service.software
 
+# Fingerprint HAL
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint@2.1-service \
+    fingerprint.synaptics
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.fingerprint=synaptics
+
+# NFC HAL
+PRODUCT_PACKAGES += \
+    android.hardware.nfc@1.2-service \
+#    android.hardware.secure_element@1.1-service
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.nfc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.hce.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hcef.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.hcef.xml \
+    frameworks/native/data/etc/com.nxp.mifare.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.nxp.mifare.xml \
+    $(LOCAL_PATH)/nfc/libnfc-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nxp.conf
+
+# Camera HAL
+#PRODUCT_PACKAGES += \
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.camera.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.xml \
+    frameworks/native/data/etc/android.hardware.camera.external.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.external.xml
+
+# GPS HAL
+#PRODUCT_PACKAGES += \
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xml
+
 # Power HAL
 PRODUCT_PACKAGES += \
     android.hardware.power-service.example
@@ -178,9 +225,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.power.stats@1.0-service.mock
 
-# USB Gadget HAL
-#RODUCT_PACKAGES += \
-    android.hardware.usb.gadget@1.1-service
+# USB HAL
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
+#    android.hardware.usb.gadget@1.1-service
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml
@@ -227,12 +275,15 @@ PRODUCT_PACKAGES += \
 
 # Bluetooth HAL
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.1-service.btlinux \
+    android.hardware.bluetooth@1.0-service.vbt \
     android.hardware.bluetooth.audio@2.0-impl \
+    android.hardware.bluetooth.a2dp@1.0-impl.mock \
     audio.bluetooth.default \
-    audio.a2dp.default
+    audio.a2dp.default \
+    libbt-vendor
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml
 
 # Wifi HAL
 PRODUCT_PACKAGES += \
@@ -243,6 +294,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     $(LOCAL_PATH)/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf
+
+# Radio HAL
+ENABLE_VENDOR_RIL_SERVICE := true
+PRODUCT_PACKAGES += \
+    android.hardware.radio@1.5-radio-service.l860gl
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.xml \
+    device/sample/etc/apns-full-conf.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/apns-conf.xml
 
 # Ethernet
 PRODUCT_COPY_FILES += \

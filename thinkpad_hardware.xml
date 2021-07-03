@@ -4,6 +4,7 @@
     <feature name="android.hardware.camera" />
     <feature name="android.hardware.location" />
     <feature name="android.hardware.location.network" />
+    <feature name="android.hardware.microphone" />
     <feature name="android.hardware.screen.portrait" />
     <feature name="android.hardware.screen.landscape" />
 
@@ -14,7 +15,19 @@
     <feature name="android.software.input_methods" />
     <feature name="android.software.picture_in_picture" />
     <feature name="android.software.autofill" />
+    <feature name="android.software.activities_on_secondary_displays" />
+    <feature name="android.software.print" />
+    <feature name="android.software.cant_save_state" />
 
+    <!-- Feature to specify if the device supports adding device admins. -->
+    <feature name="android.software.device_admin" />
+
+    <!-- Feature to specify if the device support managed users. -->
+    <feature name="android.software.managed_users" />
+
+    <!-- Feature to specify if the device supports controls. -->
+    <feature name="android.software.controls" />
+    
     <feature name="android.software.nfc.beam" />
 
 </permissions>

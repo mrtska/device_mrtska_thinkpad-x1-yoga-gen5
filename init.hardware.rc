@@ -1,5 +1,11 @@
 import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
 
+on zygote-start
+
+    mkdir /data/vendor/nfc 0770 nfc nfc
+    mkdir /data/vendor/nfc/param 0770 nfc nfc
+    setprop ro.nfc.port "I2C"
+
 on init
 
     mkdir /dev/cpuset/camera-daemon
@@ -26,6 +32,39 @@ on init
 
     chown bluetooth root /sys/class/rfkill/rfkill3/state
 
+# Sensors
+    chown root system /sys/bus/iio/devices/iio:device0/buffer/enable
+    chown root system /sys/bus/iio/devices/iio:device0/buffer/length
+    chown root system /sys/bus/iio/devices/iio:device0/trigger/current_trigger
+    chown root system /sys/bus/iio/devices/iio:device0/in_accel_sampling_frequency
+    chmod 0660 /sys/bus/iio/devices/iio:device0/buffer/enable
+    chmod 0660 /sys/bus/iio/devices/iio:device0/buffer/length
+    chmod 0660 /sys/bus/iio/devices/iio:device0/trigger/current_trigger
+    chmod 0660 /sys/bus/iio/devices/iio:device0/in_accel_sampling_frequency
+    
+    chown root system /sys/bus/iio/devices/iio:device0/scan_elements/in_accel_x_en
+    chown root system /sys/bus/iio/devices/iio:device0/scan_elements/in_accel_y_en
+    chown root system /sys/bus/iio/devices/iio:device0/scan_elements/in_accel_z_en
+    chmod 0660 /sys/bus/iio/devices/iio:device0/scan_elements/in_accel_x_en
+    chmod 0660 /sys/bus/iio/devices/iio:device0/scan_elements/in_accel_y_en
+    chmod 0660 /sys/bus/iio/devices/iio:device0/scan_elements/in_accel_z_en
+
+    chown root system /sys/bus/iio/devices/iio:device1/buffer/enable
+    chown root system /sys/bus/iio/devices/iio:device1/buffer/length
+    chown root system /sys/bus/iio/devices/iio:device1/trigger/current_trigger
+    chown root system /sys/bus/iio/devices/iio:device1/in_anglvel_sampling_frequency
+    chmod 0660 /sys/bus/iio/devices/iio:device1/buffer/enable
+    chmod 0660 /sys/bus/iio/devices/iio:device1/buffer/length
+    chmod 0660 /sys/bus/iio/devices/iio:device1/trigger/current_trigger
+    chmod 0660 /sys/bus/iio/devices/iio:device1/in_anglvel_sampling_frequency
+
+    chown root system /sys/bus/iio/devices/iio:device1/scan_elements/in_anglvel_x_en
+    chown root system /sys/bus/iio/devices/iio:device1/scan_elements/in_anglvel_y_en
+    chown root system /sys/bus/iio/devices/iio:device1/scan_elements/in_anglvel_z_en
+    chmod 0660 /sys/bus/iio/devices/iio:device1/scan_elements/in_anglvel_x_en
+    chmod 0660 /sys/bus/iio/devices/iio:device1/scan_elements/in_anglvel_y_en
+    chmod 0660 /sys/bus/iio/devices/iio:device1/scan_elements/in_anglvel_z_en
+
 on fs
     mount_all /vendor/etc/fstab.thinkpad --early
 
@@ -45,4 +84,7 @@ on boot
     start wpa_supplicant
 
     setprop wifi.interface wlan0
-
+    
+    
+    setprop vendor.dalvik.vm.isa.x86.variant kabylake
+    setprop vendor.dalvik.vm.isa.x86_64.variant kabylake

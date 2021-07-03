@@ -12,3 +12,6 @@
 # Sensors
 /dev/iio:device0          0660 root system
 /dev/iio:device1          0660 root system
+
+
+/dev/rfkill               0660 bluetooth system
